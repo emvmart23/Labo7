@@ -34,6 +34,40 @@ namespace Labo7
 
             dataGrid.ItemsSource = products;
         }
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+    
+            Product selectedProduct = dataGrid.SelectedItem as Product;
 
+            if (selectedProduct != null)
+        {
+            EditProductWindow editWindow = new EditProductWindow(selectedProduct);
+            if (editWindow.ShowDialog() == true)
+            {
+                business.UpdateProduct(selectedProduct);
+                MessageBox.Show("Producto actualizado exitosamente.");
+            }
+            }
+            else
+            {
+            MessageBox.Show("Selecciona un producto para actualizar.");
+            }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+    
+            Product selectedProduct = dataGrid.SelectedItem as Product;
+
+            if (selectedProduct != null)
+            {
+            business.LogicalDeleteProduct(selectedProduct.ProductId);
+            MessageBox.Show("Producto eliminado lógicamente.");
+            }
+            else
+            {
+            MessageBox.Show("Selecciona un producto para eliminar.");
+            }
+        }
     }
 }
