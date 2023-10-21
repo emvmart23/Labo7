@@ -45,5 +45,39 @@ namespace Data
 
             return products;
         }
+
+        public void Update(Product product)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand("actualizarProducto", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Name", product.name);
+                    command.Parameters.AddWithValue("@Price", product.price);
+                    command.Parameters.AddWithValue("@Stock", product.stock);
+                    command.Parameters.AddWithValue("@Active", product.active);
+                    command.Parameters.AddWithValue("@ProductId", product.ProductId);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void LogicalDelete(int productId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand("eliminarProductoLogico", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ProductId", productId);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
