@@ -30,6 +30,16 @@ namespace Business
             return result;
         }
 
-      
+        public void UpdateProduct(Product product)
+        {
+            DProduct data = new DProduct();
+            data.Update(product);
+        }
+
+        public void LogicalDeleteProduct(int productId)
+        {
+            DProduct data = new DProduct();
+            data.LogicalDelete(productId);
+        }
     }
 }
